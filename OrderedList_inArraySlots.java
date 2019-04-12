@@ -18,21 +18,36 @@ public class OrderedList_inArraySlots
               \findMe is absent from this list.
      */
     public int indexOf( Integer findMe) {
-	// return whileStyle(findMe);
-	return recursive(findMe, 0, list_iAS.toArray().length - 1);
+	return whileStyle(findMe);
+	// return recursive(findMe, 0, list_iAS.size() - 1);
     }
     
 
     public int whileStyle( Integer findMe) {
-	for (int idx = 0; idx < list_iAS.toArray().length; idx++){
-	    if (list_iAS.get(idx) == findMe)
-		return idx;
+	int lo = 0;
+	int hi = list_iAS.size() - 1;
+	while (lo <= hi){
+	    int mid = (lo + hi)/2;
+	    int comparison = findMe.compareTo(list_iAS.get(mid));
+	    if (comparison == 0)
+		return mid;
+	    else {
+		if (comparison > 0)
+		    lo = mid + 1;
+		else
+		    hi = mid - 1;
+	    }
 	}
-        return -1;
+	return -1;
+	// for (int idx = 0; idx < list_iAS.toArray().length; idx++){
+	//     if (list_iAS.get(idx) == findMe)
+	// 	return idx;
+	// }
+        // return -1;
     }
 
     public int recursive( Integer findMe, int lo, int hi) {
-	while (lo <= hi) {
+	if (lo <= hi) {
 	    int mid = (lo + hi)/2;
 	    if (list_iAS.get(mid) == findMe) return mid;
 	    else if (list_iAS.get(mid) > findMe){
